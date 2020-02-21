@@ -1,0 +1,54 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"id": "sap.ui.tmg.calendar",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"_version": "1.3.0"
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"_version": "1.3.0",
+		"supportedThemes": []
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.tmg.calendar.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60",
+			"libs": {
+				"sap.ui.unified": {},
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.ui.tmg.calendar.i18n.i18n"
+				}
+			}
+		},
+		"_version": "1.2.0",
+		"contentDensities": {
+			"compact": false,
+			"cozy": false
+		}
+	}
+}
