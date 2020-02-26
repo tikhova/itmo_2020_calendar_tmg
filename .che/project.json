@@ -1,1 +1,1 @@
-{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{},"mixinTypes":[]}
+{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{"sap.watt.common.setting":["{\"hcpdeploy\":{\"account\":\"p2002081482trial\",\"name\":\"itmo2020calendartmg\",\"lastVersionWeTriedToDeploy\":\"1.0.0\"}}"]},"mixinTypes":[]}
