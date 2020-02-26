@@ -15,7 +15,7 @@
 							id="calendar"
 							months="12"
 							select="handleCalendarSelect"
-							width="100%"
+							width="auto"
 							intervalSelection="true"
 							/>
                   </content>
