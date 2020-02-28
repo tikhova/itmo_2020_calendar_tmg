@@ -1,0 +1,11 @@
+.sapUiCalHead {
+    display: none;
+}
+
+.calendar {
+    display: flex;
+}
+
+.sapUiGlobalBackgroundColor {
+    background-color: white;
+}

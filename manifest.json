@@ -49,10 +49,17 @@
 		"contentDensities": {
 			"compact": false,
 			"cozy": false
-		}
-	},
+		},
+		"resources": {
+    	  "css": [
+    		{
+    		  "uri": "css/calendar.css"
+    		}
+    	  ]
+    	}
+    	},
 	"sap.platform.hcp": {
 		"uri": "",
-		"_version": "1.1.0"
+		"_version": "1.2.0"
 	}
 }

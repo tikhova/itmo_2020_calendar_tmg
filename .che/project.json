@@ -1,1 +1,1 @@
-{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{},"mixinTypes":[]}
+{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{"sap.watt.common.setting":["{\"layout\":{\"snapshot\":{\"viewport\":{\"x\":-962,\"y\":-402,\"scale\":1},\"collapsedPorts\":[],\"expandedShapes\":[],\"selection\":[],\"focus\":\"\"}}}"]},"mixinTypes":[]}
