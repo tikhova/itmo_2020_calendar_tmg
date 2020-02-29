@@ -13,20 +13,17 @@ sap.ui.define([
 
 			oLeg.addItem(new CalendarLegendItem({
 				type: "Type01",
-				text: "{i18n>holidayDate}",
-				color: "green"
+				text: "{i18n>holidayDate}"
 			}));
 
 			oLeg.addItem(new CalendarLegendItem({
 				type: "Type02",
-				text: "{i18n>extraNonWorkingDate}",
-				color: "blue"
+				text: "{i18n>extraNonWorkingDate}"
 			}));
 
 			oLeg.addItem(new CalendarLegendItem({
 				type: "Type03",
-				text: "{i18n>extraWorkingDate}",
-				color: "red"
+				text: "{i18n>extraWorkingDate}"
 			}));
 		}
 	});

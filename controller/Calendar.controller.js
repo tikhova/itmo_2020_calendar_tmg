@@ -7,6 +7,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 		var CalendarType = coreLibrary.CalendarType;
 		var CalendarDayType = unifiedLibrary.CalendarDayType;
 
+		var oModel = new sap.ui.model.xml.XMLModel("../calendar.xml");
+
 		return Controller.extend("sap.ui.tmg.calendar.App", {
 			oFormatYyyymmdd: null,
 
@@ -23,6 +25,18 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 					type: CalendarDayType.Type01,
 					tooltip: "Мой день рождения"
 				}));
+
+				// load data from xml
+				var xmlhttp;
+				if (window.XMLHttpRequest) {
+					xmlhttp = new XMLHttpRequest();
+				} else {
+					xmlhttp = new window.ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.open("GET", "../calendar.xml", false);
+				xmlhttp.send();
+				var xmlDoc = xmlhttp.responseXML;
+				console.log(xmlDoc.getElementsByTagName('calendar')[0].getAttribute('year'));
 			},
 
 			handleCalendarSelect: function (oEvent) {
