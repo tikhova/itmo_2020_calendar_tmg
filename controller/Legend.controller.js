@@ -23,6 +23,11 @@ sap.ui.define([
 
 			oLeg.addItem(new CalendarLegendItem({
 				type: "Type03",
+				text: "{i18n>shortenedWorkingDate}"
+			}));
+
+			oLeg.addItem(new CalendarLegendItem({
+				type: "Type04",
 				text: "{i18n>extraWorkingDate}"
 			}));
 		}

@@ -10,12 +10,11 @@
     background-color: white;
 }
 
-.sapUiCalItem {
-    border-radius: 0.25rem;
-}
-
 
 /*Special dates*/
+
+
+/* holiday */
 
 .sapUiCalItemType01 > .sapUiCalItemText {
     box-shadow: inset 0 -0.25rem 0 green;
@@ -25,6 +24,9 @@
     background: green;
 }
 
+
+/* extra non working */
+
 .sapUiCalItemType02 > .sapUiCalItemText {
     box-shadow: inset 0 -0.25rem 0 blue;
 }
@@ -33,10 +35,24 @@
     background: blue;
 }
 
+
+/* shortened working */
+
 .sapUiCalItemType03 > .sapUiCalItemText {
-    box-shadow: inset 0 -0.25rem 0 red;
+    box-shadow: inset 0 -0.25rem 0 violet;
 }
 
 .sapUiCalLegDayType03>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor {
+    background: violet;
+}
+
+
+/* extra working */
+
+.sapUiCalItemType04 > .sapUiCalItemText {
+    box-shadow: inset 0 -0.25rem 0 red;
+}
+
+.sapUiCalLegDayType04>.sapUiUnifiedLegendSquare>.sapUiUnifiedLegendSquareColor {
     background: red;
 }
