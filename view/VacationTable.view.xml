@@ -1,0 +1,33 @@
+<mvc:View controllerName="sap.ui.tmg.calendar.controller.Table" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Table id="table" class="sapUiResponsiveMargin" inset="false" items="{ path: '/Intervals', sorter: { path: 'startDate' } }" width="auto">
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title text="Расписание отпусков" level="H2"/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Начало"/>
+			</Column>
+			<Column>
+				<Text text="Конец"/>
+			</Column>
+			<Column>
+				<Text text="Кол-во дней"/>
+			</Column>
+			<Column>
+				<Text text="Кол-во рабочих дней"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{ path: 'startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'dd/MM/yyyy' } } }"/>
+					<Text text="{ path: 'endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'dd/MM/yyyy' } } }"/>
+					<Text text="{dayCount}"/>
+					<ObjectNumber number="{holidayCount}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>

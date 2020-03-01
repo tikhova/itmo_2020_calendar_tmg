@@ -3,6 +3,7 @@
 		<pages>
 			<Page title="{i18n>pageTitle}" showHeader="false">
 				<content class="calendar">
+					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.VacationTable"/>
 					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.Legend"/>
 					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.Calendar"/>
 				</content>

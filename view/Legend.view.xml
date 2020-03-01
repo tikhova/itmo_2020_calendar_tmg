@@ -1,7 +1,7 @@
 <mvc:View controllerName="sap.ui.tmg.calendar.controller.Legend" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Panel>
 		<content>
-			<u:CalendarLegend id="legend" class="legend" columnWidth="200px"/>
+			<u:CalendarLegend id="legend" class="sapUiResponsiveMargin" columnWidth="200px"/>
 		</content>
 	</Panel>
 </mvc:View>

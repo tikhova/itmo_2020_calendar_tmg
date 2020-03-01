@@ -70,7 +70,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				} else {
 					xmlhttp = new window.ActiveXObject("Microsoft.XMLHTTP");
 				}
-				xmlhttp.open("GET", "../calendar.xml", false);
+				xmlhttp.open("GET", "../model/calendar.xml", false);
 				xmlhttp.send();
 				xmlDoc = xmlhttp.responseXML;
 

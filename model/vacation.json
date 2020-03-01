@@ -1,0 +1,9 @@
+{
+	"Intervals": [{
+		"id": "1",
+		"startDate": "01/01/2020",
+		"endDate": "25/01/2020",
+		"dayCount": "25",
+		"holidayCount": "15"
+	}]
+}
