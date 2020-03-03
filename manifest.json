@@ -43,6 +43,10 @@
 				"settings": {
 					"bundleName": "sap.ui.tmg.calendar.i18n.i18n"
 				}
+			},
+			"vacation": {
+        		"type": "sap.ui.model.json.JSONModel",
+        		"uri": "model/vacation.json"
 			}
 		},
 		"_version": "1.2.0",

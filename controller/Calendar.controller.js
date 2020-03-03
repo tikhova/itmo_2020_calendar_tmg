@@ -6,6 +6,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 
 		var CalendarType = coreLibrary.CalendarType;
 		var CalendarDayType = unifiedLibrary.CalendarDayType;
+		var nonWorkingSet = new Set();
+		var extraWorkingSet = new Set();
 		var xmlDoc;
 
 		function addDayToCal(day) {
@@ -14,6 +16,9 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 			var type = day.getAttribute("t");
 			var calendarType;
 			var holidayTooltip;
+
+			var date = new Date("2020/" + day.getAttribute("d").replace('.', '/'));
+
 			switch (type) {
 			case "1": // holiday
 				var holidayId = day.getAttribute("h");
@@ -26,16 +31,19 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				} else {
 					calendarType = CalendarDayType.Type02;
 				}
+
+				nonWorkingSet.add(date);
 				break;
 			case "2": // shortened work day
 				calendarType = CalendarDayType.Type03;
+				extraWorkingSet.add(date);
 				break;
-			case "3":
+			case "3": // extra working day
 				calendarType = CalendarDayType.Type04;
+				extraWorkingSet.add(date);
 				break;
 			}
 
-			var date = new Date("2020/" + day.getAttribute("d").replace('.', '/'));
 			if (holidayTooltip) {
 				oCalendar.addSpecialDate(new DateTypeRange({
 					startDate: date,
@@ -47,6 +55,15 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 					startDate: date,
 					type: calendarType
 				}));
+			}
+		}
+
+		function isWorkingDay(day) {
+			var dayOfWeek = day.getDay();
+			if (dayOfWeek === 0 || dayOfWeek === 6) {
+				return extraWorkingSet.has(day) === true;
+			} else {
+				return nonWorkingSet.has(day) === false;
 			}
 		}
 
@@ -77,18 +94,35 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				Array.from(xmlDoc.getElementsByTagName("day")).forEach(day => addDayToCal.call(this, day));
 			},
 
-			handleCalendarSelect: function (oEvent) {
-				var oCalendar = oEvent.getSource();
+			addInterval: function () {
+				var oCalendar = this.byId("calendar");
 
-				this._updateText(oCalendar);
-			},
+				var interval = oCalendar.getSelectedDates()[0];
 
-			_updateText: function (oCalendar) {
-				var oText = this.byId("selectedDate"),
-					aSelectedDates = oCalendar.getSelectedDates(),
-					oDate = aSelectedDates[0].getStartDate();
+				var startDate = interval.getStartDate();
+				var endDate = interval.getEndDate();
+				var diffDays = Math.ceil(Math.abs(endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
-				oText.setText(this.oFormatYyyymmdd.format(oDate));
+				var workingCount = 0;
+				var curDate = new Date(startDate);
+				while (curDate.getTime() <= endDate.getTime()) {
+					if (isWorkingDay(curDate)) {
+						workingCount++;
+					}
+					curDate.setDate(curDate.getDate() + 1);
+				}
+
+				var oFormat = sap.ui.core.format.DateFormat.getInstance({
+					pattern: "ddMMyyyy'"
+				});
+
+				const oModel = this.getView().getModel('vacation');
+				oModel.setProperty('/Intervals', oModel.getProperty('/Intervals').concat({
+					"startDate": `${oFormat.format(startDate)}`,
+					"endDate": `${oFormat.format(endDate)}`,
+					"daysCount": `${diffDays}`,
+					"workingDaysCount": `${workingCount}`
+				}));
 			},
 
 			handleSelectToday: function () {

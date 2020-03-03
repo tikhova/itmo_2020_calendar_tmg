@@ -9,8 +9,9 @@ sap.ui.define([
 	return Controller.extend("sap.ui.tmg.calendar.Table", {
 
 		onInit: function () {
-			// set explored app's demo model on this sample
-			this.getView().setModel(this.initDataModel());
+			var oModel = this.initDataModel();
+			oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
+			sap.ui.getCore().setModel(oModel, "vacation");
 		},
 
 		initDataModel: function () {
