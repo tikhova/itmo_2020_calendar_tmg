@@ -4,77 +4,79 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 	function (Controller, DateRange, DateFormat, DateTypeRange, coreLibrary, unifiedLibrary) {
 		"use strict";
 
-		var CalendarType = coreLibrary.CalendarType;
-		var CalendarDayType = unifiedLibrary.CalendarDayType;
-		var nonWorkingSet = new Set();
-		var extraWorkingSet = new Set();
 		var xmlDoc;
 
-		function addDayToCal(day) {
-			var holidayArray = Array.from(xmlDoc.getElementsByTagName("holiday"));
-			var oCalendar = this.byId("calendar");
-			var type = day.getAttribute("t");
-			var calendarType;
-			var holidayTooltip;
+		return Controller.extend("sap.ui.tmg.calendar.Calendar", {
+			oFormatYyyymmdd: null,
+			extraWorkingSet: null,
+			nonWorkingSet: null,
 
-			var date = new Date("2020/" + day.getAttribute("d").replace('.', '/'));
+			addDayToCal: function (day) {
+				var holidayArray = Array.from(xmlDoc.getElementsByTagName("holiday"));
+				var CalendarDayType = unifiedLibrary.CalendarDayType;
+				var oCalendar = this.byId("calendar");
+				var type = day.getAttribute("t");
+				var calendarType;
+				var holidayTooltip;
 
-			switch (type) {
-			case "1": // holiday
-				var holidayId = day.getAttribute("h");
-				if (holidayId) {
-					calendarType = CalendarDayType.Type01;
+				var date = new Date("2020/" + day.getAttribute("d").replace('.', '/'));
 
-					holidayTooltip = holidayArray.find(function (holiday) {
-						return holiday.getAttribute("id") === holidayId;
-					}).getAttribute("title");
-				} else {
-					calendarType = CalendarDayType.Type02;
+				switch (type) {
+				case "1": // holiday
+					var holidayId = day.getAttribute("h");
+					if (holidayId) {
+						calendarType = CalendarDayType.Type01;
+
+						holidayTooltip = holidayArray.find(function (holiday) {
+							return holiday.getAttribute("id") === holidayId;
+						}).getAttribute("title");
+					} else {
+						calendarType = CalendarDayType.Type02;
+					}
+
+					this.nonWorkingSet.add(date.getTime());
+					break;
+				case "2": // shortened work day
+					calendarType = CalendarDayType.Type03;
+					this.extraWorkingSet.add(date.getTime());
+					break;
+				case "3": // extra working day
+					calendarType = CalendarDayType.Type04;
+					this.extraWorkingSet.add(date.getTime());
+					break;
 				}
 
-				nonWorkingSet.add(date);
-				break;
-			case "2": // shortened work day
-				calendarType = CalendarDayType.Type03;
-				extraWorkingSet.add(date);
-				break;
-			case "3": // extra working day
-				calendarType = CalendarDayType.Type04;
-				extraWorkingSet.add(date);
-				break;
-			}
+				if (holidayTooltip) {
+					oCalendar.addSpecialDate(new DateTypeRange({
+						startDate: date,
+						type: calendarType,
+						tooltip: holidayTooltip
+					}));
+				} else {
+					oCalendar.addSpecialDate(new DateTypeRange({
+						startDate: date,
+						type: calendarType
+					}));
+				}
+			},
 
-			if (holidayTooltip) {
-				oCalendar.addSpecialDate(new DateTypeRange({
-					startDate: date,
-					type: calendarType,
-					tooltip: holidayTooltip
-				}));
-			} else {
-				oCalendar.addSpecialDate(new DateTypeRange({
-					startDate: date,
-					type: calendarType
-				}));
-			}
-		}
-
-		function isWorkingDay(day) {
-			var dayOfWeek = day.getDay();
-			if (dayOfWeek === 0 || dayOfWeek === 6) {
-				return extraWorkingSet.has(day) === true;
-			} else {
-				return nonWorkingSet.has(day) === false;
-			}
-		}
-
-		return Controller.extend("sap.ui.tmg.calendar.App", {
-			oFormatYyyymmdd: null,
+			isWorkingDay: function (day) {
+				var dayOfWeek = day.getDay();
+				if (dayOfWeek === 0 || dayOfWeek === 6) {
+					return this.extraWorkingSet.has(day.getTime()) === true;
+				} else {
+					return this.nonWorkingSet.has(day.getTime()) === false;
+				}
+			},
 
 			onInit: function () {
+				var CalendarType = coreLibrary.CalendarType;
 				this.oFormatYyyymmdd = DateFormat.getInstance({
 					pattern: "yyyy/MM/dd",
 					calendarType: CalendarType.Gregorian
 				});
+				this.extraWorkingSet = new Set();
+				this.nonWorkingSet = new Set();
 
 				var oCalendar = this.byId("calendar");
 				oCalendar.displayDate(new Date("2020/01/01"));
@@ -91,7 +93,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				xmlhttp.send();
 				xmlDoc = xmlhttp.responseXML;
 
-				Array.from(xmlDoc.getElementsByTagName("day")).forEach(day => addDayToCal.call(this, day));
+				Array.from(xmlDoc.getElementsByTagName("day")).forEach(day => this.addDayToCal(day));
 			},
 
 			addInterval: function () {
@@ -106,7 +108,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				var workingCount = 0;
 				var curDate = new Date(startDate);
 				while (curDate.getTime() <= endDate.getTime()) {
-					if (isWorkingDay(curDate)) {
+					if (this.isWorkingDay(curDate)) {
 						workingCount++;
 					}
 					curDate.setDate(curDate.getDate() + 1);
@@ -123,6 +125,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 					"daysCount": `${diffDays}`,
 					"workingDaysCount": `${workingCount}`
 				}));
+
+				oModel.refresh();
 			},
 
 			handleSelectToday: function () {
