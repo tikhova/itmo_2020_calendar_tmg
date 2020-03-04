@@ -115,28 +115,24 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				}
 
 				var oFormat = sap.ui.core.format.DateFormat.getInstance({
-					pattern: "ddMMyyyy'"
+					pattern: "MM/dd/yyyy"
 				});
 
 				const oModel = this.getView().getModel('vacation');
-				oModel.setProperty('/Intervals', oModel.getProperty('/Intervals').concat({
-					"startDate": `${oFormat.format(startDate)}`,
-					"endDate": `${oFormat.format(endDate)}`,
-					"daysCount": `${diffDays}`,
-					"workingDaysCount": `${workingCount}`
-				}));
+				oModel.setProperty('/Intervals',
+					oModel.getProperty('/Intervals')
+					.concat({
+						"startDate": `${oFormat.format(startDate)}`,
+						"endDate": `${oFormat.format(endDate)}`,
+						"daysCount": `${diffDays}`,
+						"workingDaysCount": `${workingCount}`
+					})
+					.sort((int1, int2) =>
+						new Date(int1.startDate).getTime() > new Date(int2.startDate).getTime()
+					)
+				);
 
 				oModel.refresh();
-			},
-
-			handleSelectToday: function () {
-				var oCalendar = this.byId("calendar");
-
-				oCalendar.removeAllSelectedDates();
-				oCalendar.addSelectedDate(new DateRange({
-					startDate: new Date()
-				}));
-				this._updateText(oCalendar);
 			}
 		});
 

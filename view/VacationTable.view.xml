@@ -23,9 +23,9 @@
 			<ColumnListItem>
 				<cells>
 					<Text
-						text="{ path: 'vacation>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'ddMMyyyy' } } }"/>
+						text="{ path: 'vacation>startDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'MM/dd/yyyy' } } }"/>
 					<Text
-						text="{ path: 'vacation>endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'ddMMyyyy' } } }"/>
+						text="{ path: 'vacation>endDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'short', source: { pattern: 'MM/dd/yyyy' } } }"/>
 					<ObjectNumber number="{vacation>daysCount}"/>
 					<ObjectNumber number="{vacation>workingDaysCount}"/>
 				</cells>

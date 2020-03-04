@@ -6,15 +6,7 @@ sap.ui.define([
 ], function (Controller, JSONModel, MessageToast, DateFormat) {
 	"use strict";
 
-	var oSorter = new sap.ui.model.Sorter("property");
-	oSorter.fnCompare = function (value1, value2) {
-		if (value1 < value2) return -1;
-		if (value1 == value2) return 0;
-		if (value1 > value2) return 1;
-	};
-
 	return Controller.extend("sap.ui.tmg.calendar.Table", {
-
 		onInit: function () {
 			this.initDataModel();
 		},
@@ -38,5 +30,6 @@ sap.ui.define([
 			data.splice(idx, 1);
 			oModel.setProperty('/Intervals', data);
 		}
+
 	});
 });
