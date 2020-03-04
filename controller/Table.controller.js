@@ -17,9 +17,6 @@ sap.ui.define([
 
 		onInit: function () {
 			this.initDataModel();
-
-			var oTable = this.byId("table");
-			var oBinding = oTable.getBinding("items");
 		},
 
 		initDataModel: function () {
@@ -33,6 +30,13 @@ sap.ui.define([
 			return oModel;
 		},
 
+		onDelete: function (oEvent) {
+			var path = oEvent.getParameter('listItem').getBindingContext('vacation').getPath();
+			var idx = parseInt(path.substring(path.lastIndexOf('/') + 1), 10);
+			var oModel = this.getView().getModel('vacation');
+			var data = oModel.getProperty('/Intervals');
+			data.splice(idx, 1);
+			oModel.setProperty('/Intervals', data);
+		}
 	});
-
 });

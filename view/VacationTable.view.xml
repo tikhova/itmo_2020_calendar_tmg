@@ -1,5 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
-	<Table id="table" class="sapUiResponsiveMargin" inset="false" items="{vacation>/Intervals}" width="auto" mode="Delete">
+<mvc:View controllerName="sap.ui.tmg.calendar.controller.Table" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Table id="table" class="sapUiResponsiveMargin" inset="false" items="{vacation>/Intervals}" width="auto" mode="Delete" delete="onDelete">
 		<headerToolbar>
 			<OverflowToolbar>
 				<Title text="Расписание отпусков" level="H2"/>
