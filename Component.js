@@ -13,11 +13,7 @@ sap.ui.define([
 			// set locale
 			sap.ui.getCore().getConfiguration().setLanguage("ru-RU");
 			// set data model
-			var oData = {
-				recipient: {
-					name: "World"
-				}
-			};
+			var oData = {};
 			var oModel = new JSONModel(oData);
 			this.setModel(oModel);
 		}

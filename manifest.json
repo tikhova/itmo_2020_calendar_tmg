@@ -47,6 +47,10 @@
 			"vacation": {
         		"type": "sap.ui.model.json.JSONModel",
         		"uri": "model/vacation.json"
+			},
+			"specialDays": {
+        		"type": "sap.ui.model.xml.XMLModel",
+        		"uri": "model/calendar.xml"
 			}
 		},
 		"_version": "1.2.0",

@@ -1,22 +1,22 @@
 <mvc:View controllerName="sap.ui.tmg.calendar.controller.Table" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m">
-	<Table id="table" class="sapUiResponsiveMargin" inset="false" items="{vacation>/Intervals}" width="auto" mode="Delete" delete="onDelete">
+	<Table id="table" class="sapUiResponsiveMargin" inset="false" items="{vacation>/intervals}" width="auto" mode="Delete" delete="onDelete">
 		<headerToolbar>
 			<OverflowToolbar>
-				<Title text="Расписание отпусков" level="H2"/>
+				<Title text="{i18n>title}" level="H2"/>
 			</OverflowToolbar>
 		</headerToolbar>
 		<columns>
 			<Column>
-				<Text text="Начало"/>
+				<Text text="{i18n>start}"/>
 			</Column>
 			<Column>
-				<Text text="Конец"/>
+				<Text text="{i18n>end}"/>
 			</Column>
-			<Column>
-				<Text text="Кол-во дней"/>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>daysCount}"/>
 			</Column>
-			<Column>
-				<Text text="Кол-во рабочих дней"/>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>workingDaysCount}"/>
 			</Column>
 		</columns>
 		<items>

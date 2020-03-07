@@ -2,16 +2,16 @@
     display: none;
 }
 
-.calendar {
-    display: flex;
-}
-
 .sapUiGlobalBackgroundColor {
     background-color: white;
 }
 
-.table {
-    width: 80%;
+#__data8 {
+    width: 100%;
+}
+
+.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border: none;
 }
 
 

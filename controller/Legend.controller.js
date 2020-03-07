@@ -1,9 +1,7 @@
 sap.ui.define([
 	'sap/ui/core/mvc/Controller',
-	'sap/ui/unified/CalendarLegendItem',
-	'sap/ui/unified/DateTypeRange',
-	'sap/ui/unified/library'
-], function (Controller, CalendarLegendItem, DateTypeRange, unifiedLibrary) {
+	'sap/ui/unified/CalendarLegendItem'
+], function (Controller, CalendarLegendItem) {
 	"use strict";
 
 	return Controller.extend("sap.ui.tmg.calendar.Legend", {

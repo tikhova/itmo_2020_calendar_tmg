@@ -1,12 +1,13 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
+<mvc:View controllerName="sap.ui.tmg.calendar.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" displayBlock="true">
 	<App>
 		<pages>
 			<Page title="{i18n>pageTitle}" showHeader="false">
-				<content class="calendar">
-					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.VacationTable"/>
-					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.Legend"/>
-					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.Calendar"/>
-				</content>
+				<VBox alignItems="Center">
+					<mvc:XMLView viewName="sap.ui.tmg.calendar.view.Table"/>
+					<Button id="addButton" type="Default" text="Добавить" press="addInterval" ariaDescribedBy="genericButtonDescription"/>
+					<mvc:XMLView class="legend" viewName="sap.ui.tmg.calendar.view.Legend"/>
+					<mvc:XMLView id="calendarView" viewName="sap.ui.tmg.calendar.view.Calendar"/>
+				</VBox>
 			</Page>
 		</pages>
 	</App>

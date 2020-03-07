@@ -1,7 +1,6 @@
 <mvc:View controllerName="sap.ui.tmg.calendar.controller.Calendar" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Panel>
 		<content>
-			<Button id="addButton" type="Default" text="Добавить" press="addInterval" ariaDescribedBy="genericButtonDescription"/>
 			<u:Calendar id="calendar" legend="legend" months="12" select="handleCalendarSelect" intervalSelection="true" width="100%"/>
 		</content>
 	</Panel>
