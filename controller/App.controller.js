@@ -10,6 +10,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 			nonWorkingSet: new Set(),
 			extraWorkingSet: new Set(),
 			holidaySet: new Set(),
+			i18nBundle: null,
 
 			addInterval: function () {
 				var oModel = this.getOwnerComponent().getModel('vacation');
@@ -20,7 +21,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 
 				// check count
 				if (count >= 4) {
-					alert("Количество отпусков в году не может превышать 4");
+					alert(this.i18nBundle.getText('countError'));
 					return;
 				}
 
@@ -46,7 +47,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 				});
 
 				if (hasIntersection) {
-					alert("Периоды отпусков не могут пересекаться");
+					alert(this.i18nBundle.getText('intersectionError'));
 					return;
 				}
 
@@ -67,13 +68,13 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 
 				// check total length
 				if (totalLength + diffDays - holidayCount > 28) {
-					alert("Суммарная длительность отпусков не может превышать 28 календарных дней (без учета гос. праздников)");
+					alert(this.i18nBundle.getText('sumError'));
 					return;
 				}
 
 				// check fortnight
 				if (fortnightCount === 0 && count === 3 && diffDays < 14) {
-					alert("Один отпуск должен иметь длительность не менее 14 календарных дней (без учета праздников)");
+					alert(this.i18nBundle.getText('fortnightError'));
 					return;
 				}
 
@@ -130,10 +131,9 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 					var holidayId = day.getAttribute("h");
 
 					if (holidayId) {
-						this.extraWorkingSet.add(date.getTime());
-					} else {
-						this.nonWorkingSet.add(date.getTime());
+						this.holidaySet.add(date.getTime());
 					}
+					this.nonWorkingSet.add(date.getTime());
 
 					break;
 				case "2": // shortened work day
@@ -146,17 +146,21 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 			},
 
 			getSpecialDaySets: function () {
-				var oModel = this.getOwnerComponent().setModel(oModel, 'specialDays');
+				var oModel = this.getOwnerComponent().getModel('specialDays');
 
 				// get information from xml model
-				var holidays = oModel.getObject('/holidays').getElementsByTagName("holiday");
+				var holidays = oModel.getObject('/holidays').getElementsByTagName('holiday');
 				var holidayArray = Array.from(holidays);
 
-				Array.from(days).forEach(day => this.addDayToSet(day, holidayArray));
+				var days = oModel.getObject('/days').getElementsByTagName('day');
+				var dayArray = Array.from(days);
+
+				dayArray.forEach(day => this.addDayToSet(day, holidayArray));
 			},
 
 			onInit: function () {
-				this.getSpecialDaysSets;
+				this.getSpecialDaySets();
+				this.i18nBundle = this.getView().getModel("i18n").getResourceBundle();
 			}
 		});
 
