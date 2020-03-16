@@ -102,9 +102,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/unified/DateRange', 'sap/ui
 						"workingDaysCount": `${workingCount}`,
 						"holidaysCount": `${holidayCount}`
 					})
-					.sort((int1, int2) =>
-						new Date(int1.startDate).getTime() > new Date(int2.startDate).getTime()
-					)
+					.sort((int1, int2) => int1.startDate > int2.startDate ? 1 : -1)
 				);
 			},
 
